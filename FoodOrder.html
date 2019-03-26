@@ -1,0 +1,665 @@
+﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Food Order</title>
+    <style>
+        html {
+            font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            border-radius: .4rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5;
+        }
+
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            padding: 1em;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card-img-top {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            
+        }
+
+        .card-text {
+            clear: both;
+            margin-top: .5em;
+            overflow: hidden;
+            color: rgba(0, 0, 0, .68);
+        }
+
+        .card-footer {
+            font-size: 1em;
+            position: static;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            padding: .75em 1em;
+            color: rgba(0, 0, 0, .4);
+            border-top: 5px solid rgba(0, 0, 0, .05) !important;
+            
+        }
+
+      
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+
+        .qty .count {
+            color: #000;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 15px;
+            padding: 0 1px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .qty .plus {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: black;
+            width: 15px;
+            height: 15px;
+            font: 15px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 20%;
+        }
+
+        .qty .minus {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: black;
+            width: 15px;
+            height: 15px;
+            font: 15px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 20%;
+            background-clip: padding-box;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        
+        span {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        input {
+            border: 0;
+            width: 1%;
+        }
+
+            input:disabled {
+                background-color: white;
+            }
+       
+    </style>
+    
+</head>
+<body>
+
+    <!--<nav class="navbar  navbar-expand-sm  bg-dark navbar-dark navbar-static-top">
+        <a class="navbar-brand" href="#">Food Order</a>
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav  mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+
+
+
+     
+
+        <div class="mx-auto order-0">
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            
+            <ul class="navbar-nav ml-auto">
+               
+                <li class="nav-item ">
+                    <button type="button" class="btn btn-link"
+                        data-toggle="modal" data-target="#loginform">
+                        Login</button>
+                    <div class="modal modal-centered" id="loginform">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Enter Login details....</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="md-form mb-5">
+                                        <form action="#" method="">
+                                            <label class="form-control-label">Username :</label>
+                                            <input class="form-control" type="text" name="sname" placeholder="" required>
+                                            <label class="form-control-label">Password :</label>
+                                            <input class="form-control" type="password" name="sname" placeholder="" required>
+                                            <br>
+                                            <button type="submit" class="btn btn-dark">Login</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+                <li class="nav-item ">
+                   <button type="button" class="btn btn-link"
+                        data-toggle="modal" data-target="#Registerform">
+                        Register</button>
+                    <div class="modal modal-centered" id="Registerform">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Register here.......</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="md-form mb-5">
+                                        <form action="#" method="">
+                                            <label class="form-control-label">Username :</label>
+                                            <input class="form-control" type="text" name="sname" placeholder="" required>
+                                            <label class="form-control-label">Password :</label>
+                                            <input class="form-control" type="password" name="sname" placeholder="" required>
+                                            <label class="form-control-label">Confirm Password :</label>
+                                            <input class="form-control" type="password" name="sname" placeholder="" required>
+                                            <br>
+                                            <button type="submit" class="btn btn-dark">Register</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Cart</a>
+                </li>
+            </ul>
+        </div>
+        
+    </nav> -->
+    
+   
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+  <a class="navbar-brand" href="#">FoodOrder</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About Us</a>
+      </li>    
+    </ul>
+      <ul class="navbar-nav ml-auto">
+                    
+                    <li class="nav-item"><a href="#" class="nav-link" >Cart</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" >Logout</a></li>
+                </ul>
+  </div>  
+</nav>
+
+    <br />
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>456</small></h4>
+                        <div class="card-text">
+                            Food Description
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 shadow mt-4">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4 shadow">
+                <div class="card card-inverse card-info">
+                    <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/fx1vjkeijiq4uayblxz8">
+                    <div class="card-block">
+
+                        <h4 class="card-title">Food Name &nbsp <small>Price</small></h4>
+                        <div class="card-text">
+                            Food Description
+
+                            <br />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+
+                        <div class="qty mt-15">
+                            <span class="minus bg-light">-</span>
+                            <input type="number" class="count" name="qty" value="1">
+                            <span class="plus bg-light">+</span>
+                            <button class="btn btn-dark float-right btn-sm">Add</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+    <div class="footer bg-dark">
+  <p>................................................</p>
+</div>
+    <script>
+
+        $(document).ready(function () {
+            $('.count').prop('disabled', true);
+            $(document).on('click', '.plus', function () {
+                $('.count').val(parseInt($('.count').val()) + 1);
+            });
+            $(document).on('click', '.minus', function () {
+                $('.count').val(parseInt($('.count').val()) - 1);
+                if ($('.count').val() < 0) {
+                    $('.count').val(0);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
